@@ -512,15 +512,6 @@
               link.classList.add('active');
               const tree = link.closest('.nav-treeview');
               if (tree) {
-                // Close other open menus so only this section is visible
-                const allOpen = document.querySelectorAll('.sidebar-wrapper .nav-item.menu-open');
-                allOpen.forEach(openLi => {
-                  if (openLi.contains(tree)) return;
-                  openLi.classList.remove('menu-open');
-                  const openParentLink = openLi.querySelector(':scope > a.nav-link');
-                  if (openParentLink) openParentLink.classList.remove('active');
-                });
-
                 const parentLi = tree.closest('.nav-item');
                 if (parentLi) {
                   parentLi.classList.add('menu-open');
@@ -529,33 +520,6 @@
                 }
               }
             }
-          });
-
-          // When clicking a top-level section, open only that section
-          const topLinks = document.querySelectorAll('.sidebar-wrapper nav .nav-item > a.nav-link');
-          topLinks.forEach(tlink => {
-            tlink.addEventListener('click', function (e) {
-              const li = this.closest('.nav-item');
-              const hasTree = li && li.querySelector('.nav-treeview');
-              if (!hasTree) return;
-              // Toggle: close all others first
-              const all = document.querySelectorAll('.sidebar-wrapper .nav-item.menu-open');
-              all.forEach(el => {
-                if (el === li) return;
-                el.classList.remove('menu-open');
-                const pl = el.querySelector(':scope > a.nav-link');
-                if (pl) pl.classList.remove('active');
-              });
-              // Toggle current
-              const isOpen = li.classList.contains('menu-open');
-              if (isOpen) {
-                li.classList.remove('menu-open');
-                this.classList.remove('active');
-              } else {
-                li.classList.add('menu-open');
-                this.classList.add('active');
-              }
-            });
           });
         } catch (e) {
           // ignore
