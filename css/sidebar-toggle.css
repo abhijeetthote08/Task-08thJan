@@ -1,0 +1,92 @@
+/**
+ * Sidebar Toggle Styles
+ * Provides styling for submenu animations and active states
+ */
+
+/* Submenu animation and visibility */
+.nav-treeview {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+  display: none !important;
+}
+
+.nav-treeview.menu-open {
+  opacity: 1;
+  display: block !important;
+}
+
+/* Menu item active state */
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-left: 3px solid #0d6efd;
+  padding-left: calc(0.75rem - 3px);
+}
+
+.nav-item.menu-open > .nav-link {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-left: 3px solid #0d6efd;
+  padding-left: calc(0.75rem - 3px);
+}
+
+/* Rotate arrow on active */
+.nav-item.menu-open > .nav-link .nav-arrow {
+  transform: rotate(90deg);
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-link .nav-arrow {
+  transition: transform 0.3s ease-in-out;
+  display: inline-block;
+}
+
+/* Submenu items styling */
+.nav-treeview .nav-item > .nav-link {
+  padding-left: 2rem;
+  font-size: 0.9rem;
+  color: #d0d0d0;
+}
+
+.nav-treeview .nav-item > .nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-treeview .nav-item > .nav-link.active {
+  background-color: rgba(13, 110, 253, 0.2);
+  color: #0d6efd;
+  border-left-color: #0d6efd;
+}
+
+/* Main menu item hover effect */
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Smooth transition for sidebar */
+.sidebar-wrapper {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sidebar collapsed state support */
+.sidebar-collapse .nav-treeview {
+  max-height: 0;
+  opacity: 0;
+}
+
+.sidebar-collapse .nav-item.menu-open > .nav-link .nav-arrow {
+  transform: rotate(0deg);
+}
+
+/* Focus states for accessibility */
+.nav-link:focus {
+  outline: 2px solid #0d6efd;
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling in sidebar */
+.sidebar-wrapper {
+  scroll-behavior: smooth;
+}

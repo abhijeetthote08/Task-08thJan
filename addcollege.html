@@ -68,7 +68,11 @@
       integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
       crossorigin="anonymous"
     />
+    <!-- Sidebar Toggle Styles -->
+    <link rel="stylesheet" href="./css/sidebar-toggle.css" />
   </head>
+  <!-- Sidebar Loader Script - Include early to load shared sidebar -->
+  <script src="./js/sidebar-loader.js"></script>
   <!--end::Head-->
   <!--begin::Body-->
   <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
@@ -115,7 +119,7 @@
           <a href="./index.html" class="brand-link">
             <!--begin::Brand Image--><!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">ADD COLLEGE</span>
+            <span class="brand-text fw-light">IQAC CONNECT</span>
             <!--end::Brand Text-->
           </a>
           <!--end::Brand Link-->
@@ -143,7 +147,32 @@
                 <a href="#" class="nav-link">
                   <i class="nav-icon bi bi-box-seam-fill"></i>
                   <p>
-                    Department Managment
+                    College Management
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="addcollege.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Add College</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="managecollege.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Manage College</p>
+                    </a>
+                  </li>
+                  </ul>
+              </li>
+              
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-box-seam-fill"></i>
+                  <p>
+                    Department Management
                     <i class="nav-arrow bi bi-chevron-right"></i>
                   </p>
                 </a>
@@ -158,6 +187,75 @@
                     <a href="manage_department.html" class="nav-link">
                       <i class="nav-icon bi bi-circle"></i>
                       <p>Manage Department</p>
+                    </a>
+                  </li>
+                  </ul>
+              </li>
+              
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-box-seam-fill"></i>
+                  <p>
+                    Co-ordinator Management
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="addcoordinator.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Add Co-ordinator</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="managecoordinator.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Manage Co-ordinator</p>
+                    </a>
+                  </li>
+                  </ul>
+              </li>
+              
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-box-seam-fill"></i>
+                  <p>
+                    Faculty Management
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="addfaculty.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Add Faculty</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="managefaculty.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Manage Faculty</p>
+                    </a>
+                  </li>
+                  </ul>
+              </li>
+              
+
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon bi bi-box-seam-fill"></i>
+                  <p>
+                    Reports
+                    <i class="nav-arrow bi bi-chevron-right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="reports.html" class="nav-link">
+                      <i class="nav-icon bi bi-circle"></i>
+                      <p>Reports</p>
                     </a>
                   </li>
                   </ul>
@@ -544,6 +642,8 @@
         }
       });
     </script>
+    <!-- Sidebar Toggle Handler -->
+    <script src="./js/sidebar-toggle.js"></script>
     <!--end::Script-->
   </body>
   <!--end::Body-->
