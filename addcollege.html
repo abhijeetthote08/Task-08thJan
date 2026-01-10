@@ -285,6 +285,11 @@
                         <input type="text" class="form-control" id="collegeName" />
                       </div>
 
+                      <div class="mb-3">
+                        <label for="collegeId" class="form-label">College ID</label>
+                        <input type="text" class="form-control" id="collegeId" />
+                      </div>
+
                        <div class="mb-3">
                         <label for="collegeEmail" class="form-label">College Email Id</label>
                         <input type="email" class="form-control" id="collegeEmail" />
@@ -581,19 +586,20 @@
       document.getElementById('addCollegeForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const name = document.getElementById('collegeName').value.trim();
+        const id = document.getElementById('collegeId').value.trim();
         const email = document.getElementById('collegeEmail').value.trim();
         const password = document.getElementById('collegePassword').value.trim();
         const contact = document.getElementById('collegeContact').value.trim();
         const about = document.getElementById('collegeAbout').value.trim();
         
-        if (!name || !email || !password || !contact || !about) {
+        if (!name || !id || !email || !password || !contact || !about) {
           alert('Please fill in all fields.');
           return;
         }
         
         // Store in localStorage for demo purposes
         let colleges = JSON.parse(localStorage.getItem('colleges')) || [];
-        colleges.push({ id: Date.now(), name, email, password, contact, about, active: true });
+        colleges.push({ id, name, email, password, contact, about, active: true });
         localStorage.setItem('colleges', JSON.stringify(colleges));
         
         alert('College added successfully!');

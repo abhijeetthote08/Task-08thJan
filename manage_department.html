@@ -370,13 +370,13 @@
           const row = document.createElement('tr');
           row.id = 'department-row-' + dept.id;
           row.innerHTML = `
-            <td>${index + 1}.</td>
+            <td>${dept.id}</td>
             <td>${dept.name}</td>
             <td>${dept.description}</td>
             <td>${dept.head}</td>
             <td>${dept.contact}</td>
-            <td><button class="btn btn-danger" onclick="deleteDepartment(${dept.id})">Delete</button></td>
-            <td><button class="btn btn-primary" onclick="editDepartment(${dept.id})">Edit</button></td>
+            <td><button class="btn btn-danger" onclick="deleteDepartment('${dept.id}')">Delete</button></td>
+            <td><button class="btn btn-primary" onclick="editDepartment('${dept.id}')">Edit</button></td>
           `;
           tbody.appendChild(row);
         });
@@ -385,7 +385,7 @@
       function deleteDepartment(id) {
         if (confirm('Are you sure you want to delete this department?')) {
           let departments = JSON.parse(localStorage.getItem('departments')) || [];
-          departments = departments.filter(dept => dept.id !== id);
+          departments = departments.filter(dept => String(dept.id) !== String(id));
           localStorage.setItem('departments', JSON.stringify(departments));
           loadDepartments();
         }
@@ -393,14 +393,16 @@
 
       function editDepartment(id) {
         let departments = JSON.parse(localStorage.getItem('departments')) || [];
-        const dept = departments.find(d => d.id === id);
+        const dept = departments.find(d => String(d.id) === String(id));
         if (!dept) return;
 
+        const newId = prompt('Enter Department ID:', dept.id);
         const name = prompt('Enter Department Name:', dept.name);
         const description = prompt('Enter Department Description:', dept.description);
         const head = prompt('Enter Department Head:', dept.head);
         const contact = prompt('Enter Department Contact:', dept.contact);
 
+        if (newId !== null) dept.id = newId;
         if (name !== null) dept.name = name;
         if (description !== null) dept.description = description;
         if (head !== null) dept.head = head;

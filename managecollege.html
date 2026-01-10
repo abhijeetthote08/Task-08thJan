@@ -375,14 +375,14 @@
           const row = document.createElement('tr');
           row.id = 'college-row-' + college.id;
           row.innerHTML = `
-            <td>${index + 1}.</td>
+            <td>${college.id}</td>
             <td>${college.name}</td>
             <td>${college.email}</td>
             <td>${college.password}</td>
             <td>${college.contact}</td>
             <td>${college.about}</td>
-            <td><button class="btn btn-warning" onclick="deactivateCollege(${college.id})">Deactivate</button></td>
-            <td><button class="btn btn-primary" onclick="editCollege(${college.id})">Edit</button></td>
+            <td><button class="btn btn-warning" onclick="deactivateCollege('${college.id}')">Deactivate</button></td>
+            <td><button class="btn btn-primary" onclick="editCollege('${college.id}')">Edit</button></td>
           `;
           tbody.appendChild(row);
         });
@@ -391,7 +391,7 @@
       function deactivateCollege(id) {
         if (confirm('Are you sure you want to deactivate this college?')) {
           let colleges = JSON.parse(localStorage.getItem('colleges')) || [];
-          const college = colleges.find(c => c.id === id);
+          const college = colleges.find(c => String(c.id) === String(id));
           if (college) {
             college.active = false;
             localStorage.setItem('colleges', JSON.stringify(colleges));
@@ -402,15 +402,17 @@
 
       function editCollege(id) {
         let colleges = JSON.parse(localStorage.getItem('colleges')) || [];
-        const college = colleges.find(c => c.id === id);
+        const college = colleges.find(c => String(c.id) === String(id));
         if (!college) return;
 
+        const newId = prompt('Enter College ID:', college.id);
         const name = prompt('Enter College Name:', college.name);
         const email = prompt('Enter College Email:', college.email);
         const password = prompt('Enter College Password:', college.password);
         const contact = prompt('Enter College Contact:', college.contact);
         const about = prompt('Enter College About Us:', college.about);
 
+        if (newId !== null) college.id = newId;
         if (name !== null) college.name = name;
         if (email !== null) college.email = email;
         if (password !== null) college.password = password;

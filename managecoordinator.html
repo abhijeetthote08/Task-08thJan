@@ -564,14 +564,14 @@
           const row = document.createElement('tr');
           row.id = 'coordinator-row-' + coord.id;
           row.innerHTML = `
-            <td>${index + 1}.</td>
+            <td>${coord.id}</td>
             <td>${coord.name}</td>
             <td>${coord.email}</td>
             <td>${coord.password}</td>
             <td>${coord.contact}</td>
             <td>${deptName}</td>
-            <td><button class="btn btn-danger" onclick="deleteCoordinator(${coord.id})">Deactive</button></td>
-            <td><button class="btn btn-primary" onclick="editCoordinator(${coord.id})">Edit</button></td>
+            <td><button class="btn btn-danger" onclick="deleteCoordinator('${coord.id}')">Deactive</button></td>
+            <td><button class="btn btn-primary" onclick="editCoordinator('${coord.id}')">Edit</button></td>
           `;
           tbody.appendChild(row);
         });
@@ -580,7 +580,7 @@
       function deleteCoordinator(id) {
         if (confirm('Are you sure you want to delete this coordinator?')) {
           let coordinators = JSON.parse(localStorage.getItem('coordinators')) || [];
-          coordinators = coordinators.filter(coord => coord.id !== id);
+          coordinators = coordinators.filter(coord => String(coord.id) !== String(id));
           localStorage.setItem('coordinators', JSON.stringify(coordinators));
           loadCoordinators();
         }
@@ -588,15 +588,17 @@
 
       function editCoordinator(id) {
         let coordinators = JSON.parse(localStorage.getItem('coordinators')) || [];
-        const coord = coordinators.find(c => c.id === id);
+        const coord = coordinators.find(c => String(c.id) === String(id));
         if (!coord) return;
 
+        const newId = prompt('Enter Coordinator ID:', coord.id);
         const name = prompt('Enter Coordinator Name:', coord.name);
         const email = prompt('Enter Coordinator Email:', coord.email);
         const password = prompt('Enter Coordinator Password:', coord.password);
         const contact = prompt('Enter Coordinator Contact:', coord.contact);
         const department = prompt('Enter Department ID:', coord.department);
         
+        if (newId !== null) coord.id = newId;
         if (name !== null) coord.name = name;
         if (email !== null) coord.email = email;
         if (password !== null) coord.password = password;

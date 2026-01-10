@@ -293,6 +293,11 @@
                         <input type="text" class="form-control" id="coordinatorName" required />
                       </div>
 
+                      <div class="mb-3">
+                        <label for="coordinatorId" class="form-label">Co-ordinator ID</label>
+                        <input type="text" class="form-control" id="coordinatorId" required />
+                      </div>
+
                        <div class="mb-3">
                         <label for="coordinatorEmail" class="form-label">Co-ordinator Email Id</label>
                         <input type="email" class="form-control" id="coordinatorEmail" required />
@@ -604,14 +609,20 @@
       document.getElementById('addCoordinatorForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const name = document.getElementById('coordinatorName').value;
+        const id = document.getElementById('coordinatorId').value;
         const email = document.getElementById('coordinatorEmail').value;
         const password = document.getElementById('coordinatorPassword').value;
         const contact = document.getElementById('coordinatorContact').value;
         const department = document.getElementById('coordinatorDepartment').value;
         
+        if (!name || !id || !email || !password || !contact || !department) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        
         // Store in localStorage for demo purposes
         let coordinators = JSON.parse(localStorage.getItem('coordinators')) || [];
-        coordinators.push({ id: Date.now(), name, email, password, contact, department });
+        coordinators.push({ id, name, email, password, contact, department });
         localStorage.setItem('coordinators', JSON.stringify(coordinators));
         
         alert('Coordinator added successfully!');

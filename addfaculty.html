@@ -294,14 +294,14 @@
                         <input type="text" class="form-control" id="facultyName" required />
                       </div>
 
-                       <div class="mb-3">
-                        <label for="facultyEmail" class="form-label">Faculty Email Id</label>
-                        <input type="email" class="form-control" id="facultyEmail" required />
+                      <div class="mb-3">
+                        <label for="facultyId" class="form-label">Faculty ID</label>
+                        <input type="text" class="form-control" id="facultyId" required />
                       </div>
 
                        <div class="mb-3">
-                        <label for="facultyPassword" class="form-label">Faculty Password</label>
-                        <input type="password" class="form-control" id="facultyPassword" required />
+                        <label for="facultyEmail" class="form-label">Faculty Email Id</label>
+                        <input type="email" class="form-control" id="facultyEmail" required />
                       </div>
 
                        <div class="mb-3">
@@ -420,22 +420,24 @@
         const urlParams = new URLSearchParams(window.location.search);
         const editId = urlParams.get('edit');
         if (editId) {
-          loadFacultyForEdit(editId);
+          loadFacultyForEdit(decodeURIComponent(editId));
         }
       }
 
       function loadFacultyForEdit(id) {
         let faculties = JSON.parse(localStorage.getItem('faculties')) || [];
-        const faculty = faculties.find(f => f.id == id);
+        const faculty = faculties.find(f => String(f.id) === String(id));
         if (faculty) {
+          document.getElementById('facultyId').value = faculty.id;
           document.getElementById('facultyName').value = faculty.name;
           document.getElementById('facultyEmail').value = faculty.email;
-          document.getElementById('facultyPassword').value = faculty.password;
           document.getElementById('facultyContact').value = faculty.contact;
-          document.getElementById('facultyDepartment').value = faculty.departmentId;
           document.getElementById('facultyQualification').value = faculty.qualification;
           document.getElementById('facultyExperience').value = faculty.experience;
           document.getElementById('facultySpecialization').value = faculty.specialization || '';
+
+          // Set department value
+          document.getElementById('facultyDepartment').value = faculty.departmentId;
 
           // Change submit button text and store edit ID
           const submitBtn = document.querySelector('#addFacultyForm button[type="submit"]');
@@ -462,11 +464,12 @@
         const submitBtn = document.querySelector('#addFacultyForm button[type="submit"]');
         const isEdit = submitBtn.dataset.editId;
 
+        let faculties = JSON.parse(localStorage.getItem('faculties')) || [];
+
         const faculty = {
-          id: isEdit ? parseInt(isEdit) : Date.now(),
+          id: document.getElementById('facultyId').value,
           name: document.getElementById('facultyName').value,
           email: document.getElementById('facultyEmail').value,
-          password: document.getElementById('facultyPassword').value,
           contact: document.getElementById('facultyContact').value,
           departmentId: document.getElementById('facultyDepartment').value,
           qualification: document.getElementById('facultyQualification').value,
@@ -475,30 +478,27 @@
           active: true
         };
 
-        let faculties = JSON.parse(localStorage.getItem('faculties')) || [];
-
         if (isEdit) {
           // Update existing faculty
-          const index = faculties.findIndex(f => f.id == isEdit);
+          const index = faculties.findIndex(f => String(f.id) === String(isEdit));
           if (index !== -1) {
             faculties[index] = faculty;
+            localStorage.setItem('faculties', JSON.stringify(faculties));
+            alert('Faculty updated successfully!');
+            // Redirect back to manage faculty page
+            window.location.href = 'managefaculty.html';
+          } else {
+            alert('Faculty not found for update!');
           }
-          alert('Faculty updated successfully!');
         } else {
           // Add new faculty
           faculties.push(faculty);
+          localStorage.setItem('faculties', JSON.stringify(faculties));
           alert('Faculty added successfully!');
         }
-
-        localStorage.setItem('faculties', JSON.stringify(faculties));
-        document.getElementById('addFacultyForm').reset();
-
-        // Reset button if it was in edit mode
-        if (isEdit) {
-          submitBtn.textContent = 'Submit';
-          delete submitBtn.dataset.editId;
-          // Remove edit parameter from URL
-          window.history.replaceState(null, null, window.location.pathname);
+        
+        if (!isEdit) {
+          document.getElementById('addFacultyForm').reset();
         }
       });
     </script>

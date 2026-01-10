@@ -294,6 +294,11 @@
                         <input type="text" class="form-control" id="departmentName" required />
                       </div>
 
+                      <div class="mb-3">
+                        <label for="departmentId" class="form-label">Department ID</label>
+                        <input type="text" class="form-control" id="departmentId" required />
+                      </div>
+
                        <div class="mb-3">
                         <label for="departmentDescription" class="form-label">Department Description</label>
                         <textarea class="form-control" id="departmentDescription" rows="3" required></textarea>
@@ -398,13 +403,19 @@
       document.getElementById('addDepartmentForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const name = document.getElementById('departmentName').value;
+        const id = document.getElementById('departmentId').value;
         const description = document.getElementById('departmentDescription').value;
         const head = document.getElementById('departmentHead').value;
         const contact = document.getElementById('departmentContact').value;
         
+        if (!name || !id || !description || !head || !contact) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        
         // Store in localStorage for demo purposes
         let departments = JSON.parse(localStorage.getItem('departments')) || [];
-        departments.push({ id: Date.now(), name, description, head, contact });
+        departments.push({ id, name, description, head, contact });
         localStorage.setItem('departments', JSON.stringify(departments));
         
         alert('Department added successfully!');
